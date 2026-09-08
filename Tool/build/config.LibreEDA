@@ -1,5 +1,5 @@
-# Generated Date: 2026-09-01 18:25:32
-if {[info exists ::env(LibreEDA_ROOT_DIR)]} {
-  source $::env(LibreEDA_ROOT_DIR)/scripts/init/init.tcl
+# Generated Date: 2026-09-07 17:15:26
+if {[info exists ::env(pathviz_ROOT_DIR)]} {
+  source $::env(pathviz_ROOT_DIR)/scripts/init/init.tcl
 }
 

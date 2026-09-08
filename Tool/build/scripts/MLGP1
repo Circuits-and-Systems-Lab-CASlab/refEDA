@@ -1,0 +1,23 @@
+
+# execute parameters for MLGP DEMO
+
+load_lef test/testcase-data/TC10/A926/ql20soc_r0hd_nn24_0.810v_tt_125c_cw_ccw_wfeol_wbeol-SITES.lef
+load_verilog test/testcase-data/TC10/A926/a9ejsExecute.v
+#set_mllevelreduction 20
+#set_mlfinallevelclustersnum 1000
+initialise_floorplan -utilisation 70 -aspectratio 1.0
+io_place
+
+set_mlflatten 0
+
+extract_mlclusters
+
+report_mlclusters_hierarchy_stats
+
+global_mlplace_MT -solver 2 -gradient 0
+
+
+# report_mlcluster 304
+# flatten_mlcluster_members 304
+
+# add dump_componentmllookuphash() per component 

@@ -13,3 +13,5 @@
 /Automated-Testcases/logs/
 /Automated-Testcases/reports/
 /Automated-Testcases/results/
+
+*.man

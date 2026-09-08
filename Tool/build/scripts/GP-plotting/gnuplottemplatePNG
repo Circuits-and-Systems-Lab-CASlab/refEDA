@@ -1,0 +1,6 @@
+# header
+
+set term pngcairo size 640,480
+set output "TOPLOT.png"
+
+plot 'TOPLOT' w lp

@@ -1,0 +1,16 @@
+
+load_lef test/testcase-data/TC10/A926/ql20soc_r0hd_nn24_0.810v_tt_125c_cw_ccw_wfeol_wbeol-SITES.lef
+
+load_verilog test/testcase-data/TC10/A926/a9ejsAU.v
+
+initialise_floorplan -utilisation 70 -aspectratio 1
+io_place
+
+### set multilevel parameters ###
+set_mlupperareaboundratio 10
+set_mllevelupperareaboundratio 5
+set_mlfinallevelclustersnum 27
+set_mlflatten 0
+
+report_mlplace_parameters
+extract_mlclusters

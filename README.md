@@ -52,7 +52,7 @@ The automated testcase suite ships with two PDKs used for the staged design flow
 
 # Getting Started
 
-LibreEDA can be built and run either **locally on Ubuntu 24.04 LTS** or inside a **Docker container**. Choose whichever fits your environment.
+LibreEDA can be run either **locally on Ubuntu (20.04, 22.04, 24.04, 26.04) and Rocky Linux 9** or inside a **Docker container**. Choose whichever fits your environment.
 
 - [Option A — Local setup &amp; execution](#option-a--local-setup--execution)
 - [Option B — Docker environment](#option-b--docker-environment)
@@ -61,9 +61,11 @@ LibreEDA can be built and run either **locally on Ubuntu 24.04 LTS** or inside a
 
 ## Option A — Local Setup & Execution
 
-Instructions for setting up the environment and running **LibreEDA** locally on **Ubuntu 24.04 LTS**.
+Instructions for setting up the environment and running **LibreEDA** locally on **Ubuntu (20.04, 22.04, 24.04, 26.04) and Rocky Linux 9**.
 
-> **Note**: Official pre-compiled binaries are available for **Ubuntu 24.04**. Additional support for **other Linux distributions** is available upon request.
+> **Note**: Official pre-compiled binaries are supported on **Ubuntu (20.04, 22.04, 24.04, 26.04)** and **Rocky Linux 9** (or RHEL/CentOS 9 derivatives).
+
+> Additional distributions can be supported upon request. 
 
 ### Requirements & System Dependencies
 
@@ -223,6 +225,7 @@ Follow [Option A](#option-a--local-setup--execution) or [Option B](#option-b--do
 
 ```bash
 cd Automated-Testcases
+export LibreEDA_INSTALL_DIR=../Tool/build/
 export LIBREEDA_ROOT=../Tool/build   # wherever your build actually is
 ```
 
