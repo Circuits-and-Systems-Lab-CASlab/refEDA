@@ -6,14 +6,13 @@ unset LC_ALL LANG LC_CTYPE LC_COLLATE LC_NUMERIC LC_TIME LC_MONETARY LC_MESSAGES
 export LC_ALL=C
 export LANG=C
 
-if [ -z "$pathviz_INSTALL_DIR" ]; then \
+# resolve the absolute directory path of this script file
+SCRIPT_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+export LibreEDA_INSTALL_DIR="$SCRIPT_DIR"
+export LIBREEDA_ROOT="$SCRIPT_DIR"
 
-    echo "ERROR: pathviz Installation Directory is NOT specified. Please set the pathviz_INSTALL_DIR shell variable to the Installation path."; 
+export LD_LIBRARY_PATH="$LD_LIBRARY_PATH:$SCRIPT_DIR/lib"
 
-else
-    export LD_PRELOAD=$pathviz_INSTALL_DIR/freetype-2.6.5/INSTALLED/lib/libfreetype.so.6;
-    
-    export LD_LIBRARY_PATH=$LD_LIBRARY_PATH:$pathviz_INSTALL_DIR/lib
-    
-    echo "pathviz Setup Complete.";
-fi
+chmod +x "$SCRIPT_DIR/scripts" -R
+
+echo "LibreEDA Setup Complete using installation directory: $LibreEDA_INSTALL_DIR"

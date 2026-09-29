@@ -57,6 +57,11 @@ LibreEDA can be run either **locally on Ubuntu (20.04, 22.04, 24.04, 26.04) and 
 - [Option A — Local setup &amp; execution](#option-a--local-setup--execution)
 - [Option B — Docker environment](#option-b--docker-environment)
 
+Both steps require to first clone the repository using the command:
+```bash
+git clone https://github.com/Circuits-and-Systems-Lab-CASlab/LibreEDA.git 
+```
+
 ---
 
 ## Option A — Local Setup & Execution
@@ -112,7 +117,12 @@ Execute the installation script:
 
 ### Running LibreEDA
 
-Once the installer outputs `=== Environment Ready ===`, your local system is configured to launch the LibreEDA executable directly:
+Once the installer outputs `=== Environment Ready ===`, the last step is to source the setup script:
+```bash
+source Tool/build/LibreEDA/LibreEDA-setup.sh
+```
+
+Then your local system is configured to launch the LibreEDA executable directly:
 
 ```bash
 ./Tool/build/LibreEDA
@@ -358,6 +368,7 @@ Automated-Testcases/
 
 - LibreEDA has no persistent design database between stages (`save_def` won't write until placement exists), so every target reloads the PDK and design from scratch rather than checkpointing between stages.
 - Only `load`, `report_timing`, `floorplan`, and `global_placement` stages exist so far — no `place`/`route`/`cts` yet. This will be updated soon as more stages land.
+- Virtual Terminal Environment (VTE) may not work inside the TOOL GUI in some distributions. TCL is still supported through the terminal.
 
 ---
 
