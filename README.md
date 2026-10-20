@@ -1,12 +1,12 @@
-# LibreEDA
+# refEDA
 
 A static timing analysis (STA) engine for open-source EDA flows.
 
-[![License](https://img.shields.io/badge/license-BSD--3--Clause-blue)](https://github.com/Circuits-and-Systems-Lab-CASlab/LibreEDA#)
+[![License](https://img.shields.io/badge/license-BSD--3--Clause-blue)](https://github.com/Circuits-and-Systems-Lab-CASlab/refEDA#)
 
 ## Overview
 
-LibreEDA evaluates the timing behavior of a digital circuit. The tool computes signal propagation delays, setup and hold times, and other timing constraints, to verify that a design meets its timing requirements.
+refEDA evaluates the timing behavior of a digital circuit. The tool computes signal propagation delays, setup and hold times, and other timing constraints, to verify that a design meets its timing requirements.
 
 ## Analysis Modes and Required Files
 
@@ -20,7 +20,7 @@ flowchart TD
     D2 --> M2["Post-Placement<br/>Analysis"]
     D3 --> M3["Post-Routing /<br/>Sign-Off Analysis"]
 
-    M1 --> T(("LibreEDA"))
+    M1 --> T(("refEDA"))
     M2 --> T
     M3 --> T
 
@@ -52,29 +52,29 @@ The automated testcase suite ships with two PDKs used for the staged design flow
 
 # Getting Started
 
-LibreEDA can be run either **locally on Ubuntu (20.04, 22.04, 24.04, 26.04) and Rocky Linux 9** or inside a **Docker container**. Choose whichever fits your environment.
+refEDA can be run either **locally on Ubuntu (22.04, 24.04)** or inside a **Docker container**. Choose whichever fits your environment.
 
 - [Option A — Local setup &amp; execution](#option-a--local-setup--execution)
 - [Option B — Docker environment](#option-b--docker-environment)
 
 Both steps require to first clone the repository using the command:
 ```bash
-git clone https://github.com/Circuits-and-Systems-Lab-CASlab/LibreEDA.git 
+git clone https://github.com/Circuits-and-Systems-Lab-CASlab/refEDA.git 
 ```
 
 ---
 
 ## Option A — Local Setup & Execution
 
-Instructions for setting up the environment and running **LibreEDA** locally on **Ubuntu (20.04, 22.04, 24.04, 26.04) and Rocky Linux 9**.
+Instructions for setting up the environment and running **refEDA** locally on **Ubuntu (22.04, 24.04)**.
 
-> **Note**: Official pre-compiled binaries are supported on **Ubuntu (20.04, 22.04, 24.04, 26.04)** and **Rocky Linux 9** (or RHEL/CentOS 9 derivatives).
+> **Note**: Official pre-compiled binaries are supported on **Ubuntu 22.04** and **Ubuntu 24.04**.
 
 > Additional distributions can be supported upon request. 
 
 ### Requirements & System Dependencies
 
-LibreEDA relies on specific system libraries, compilers (GCC 11), GTK/VTE GUI toolkits, and scientific computing development headers (GSL, SuiteSparse, FFTW).
+refEDA relies on specific system libraries, compilers (GCC 11), GTK/VTE GUI toolkits, and scientific computing development headers (GSL, SuiteSparse, FFTW).
 
 #### System Package Overview
 
@@ -115,17 +115,17 @@ Execute the installation script:
 3. Handles `libvte-dev` installation—either via APT or by downloading and compiling VTE `0.28.2` from source inside `~/vte-build`.
 4. Copies necessary Tcl headers into `/usr/include/` if needed.
 
-### Running LibreEDA
+### Running refEDA
 
 Once the installer outputs `=== Environment Ready ===`, the last step is to source the setup script:
 ```bash
-source Tool/build/LibreEDA/LibreEDA-setup.sh
+source Tool/build/refEDA-setup.sh
 ```
 
-Then your local system is configured to launch the LibreEDA executable directly:
+Then your local system is configured to launch the refEDA executable directly:
 
 ```bash
-./Tool/build/LibreEDA
+./Tool/build/refEDA
 ```
 
 ### Troubleshooting
@@ -142,7 +142,7 @@ gcc --version
 
 ## Option B — Docker Environment
 
-Configuration and Makefile required to build and run the **LibreEDA** tool inside a containerized **Ubuntu 24.04** environment with GUI support (X11 forwarding) and customizable volume mounts.
+Configuration and Makefile required to build and run the **refEDA** tool inside a containerized **Ubuntu 24.04** environment with GUI support (X11 forwarding) and customizable volume mounts.
 
 ### Prerequisites
 
@@ -159,7 +159,7 @@ When running the container, host directories are automatically mapped into the c
 
 | Host Path                                  | Container Path     | Description                                                             |
 | ------------------------------------------ | ------------------ | ----------------------------------------------------------------------- |
-| `${PWD}/../` *(Default Top Directory)* | `/home/LibreEDA-Project`  | **Primary Workspace:** Source code, scripts, and build artifacts. |
+| `${PWD}/../` *(Default Top Directory)* | `/home/refEDA-Project`  | **Primary Workspace:** Source code, scripts, and build artifacts. |
 | `/tmp/.X11-unix`                         | `/tmp/.X11-unix` | **X11 Socket:** Forwards GUI applications to host display.        |
 | *(User Defined)*                         | *(Custom)*       | Dynamic volume mounts for PDKs, technology files, or external libs.     |
 
@@ -173,7 +173,7 @@ cd <path_to_docker_folder>
 
 #### 2. Build the Docker Image
 
-Build the local `libreeda_docker_ubuntu24:v1` Docker image:
+Build the local `refeda_docker_ubuntu24:v1` Docker image:
 
 ```bash
 make build-docker
@@ -187,7 +187,7 @@ Start the container in background mode and attach an interactive `/bin/bash` ter
 make run
 ```
 
-Once inside, your workspace will be located at `/home/LibreEDA-Project`.
+Once inside, your workspace will be located at `/home/refEDA-Project`.
 
 ### Advanced Execution Options
 
@@ -204,39 +204,39 @@ make run EXTRA_PATHS="-v /path/to/pdk:/pdk -v /path/to/libs:/libs"
 By default, the root directory is `${PWD}/../`. If your project root is located elsewhere:
 
 ```bash
-make run LIBREEDA_ROOT_PATH=/absolute/path/to/LibreEDA
+make run REFEDA_ROOT_PATH=/absolute/path/to/refEDA
 ```
 
 ### Management Commands Reference
 
 | Command               | Action                  | Description                                                                  |
 | --------------------- | ----------------------- | ---------------------------------------------------------------------------- |
-| `make build-docker` | **Build**         | Builds the Docker image (`libreeda_docker_ubuntu24:v1`).                    |
+| `make build-docker` | **Build**         | Builds the Docker image (`refeda_docker_ubuntu24:v1`).                    |
 | `make run`          | **Run & Connect** | Starts the container in background and launches an interactive bash shell.   |
 | `make sh`           | **New Terminal**  | Opens an additional terminal session inside the running container.           |
 | `make stop`         | **Stop**          | Stops and deletes the running container instance.                            |
 | `make down`         | **Stop**          | Alias for`make stop`.                                                      |
-| `make save`         | **Export Image**  | Archives and compresses the image into`libreeda_docker_ubuntu24.v1.tar.gz`. |
-| `make load`         | **Import Image**  | Loads the Docker image from`libreeda_docker_ubuntu24.v1.tar.gz`.            |
+| `make save`         | **Export Image**  | Archives and compresses the image into`refeda_docker_ubuntu24.v1.tar.gz`. |
+| `make load`         | **Import Image**  | Loads the Docker image from`refeda_docker_ubuntu24.v1.tar.gz`.            |
 
 ---
 
 # Automated Testcases
 
-[`Automated-Testcases/`](Automated-Testcases/) is a Makefile-driven regression suite and design-flow template for LibreEDA: a small CI test suite with no dependencies beyond the binary, plus example designs (`aes` on both `asap7` and `sky130hs`) you can run the full load/placement/timing flow against.
+[`Automated-Testcases/`](Automated-Testcases/) is a Makefile-driven regression suite and design-flow template for refEDA: a small CI test suite with no dependencies beyond the binary, plus example designs (`aes` on both `asap7` and `sky130hs`) you can run the full load/placement/timing flow against.
 
 ## Running the Test Suite
 
-### 1. Build LibreEDA
+### 1. Build refEDA
 
 Follow [Option A](#option-a--local-setup--execution) or [Option B](#option-b--docker-environment) above first, so you have a working binary.
 
-### 2. Point LIBREEDA_ROOT at your build
+### 2. Point REFEDA_ROOT at your build
 
 ```bash
 cd Automated-Testcases
-export LibreEDA_INSTALL_DIR=../Tool/build/
-export LIBREEDA_ROOT=../Tool/build   # wherever your build actually is
+export refEDA_INSTALL_DIR=../Tool/build/
+export REFEDA_ROOT=../Tool/build   # wherever your build actually is
 ```
 
 ### 3. Run the suite
@@ -254,7 +254,7 @@ PASS: load_verilog
 PASS: report_timing_basic
 ```
 
-That's it — no PDK needed for this part. Leaving `LIBREEDA_ROOT` unset fails immediately with a clear error instead of a confusing "file not found" further down. To add a new test, drop a `<name>.tcl` into `tests/`, then run `make regen-<name>` once you've checked its output by hand.
+That's it — no PDK needed for this part. Leaving `REFEDA_ROOT` unset fails immediately with a clear error instead of a confusing "file not found" further down. To add a new test, drop a `<name>.tcl` into `tests/`, then run `make regen-<name>` once you've checked its output by hand.
 
 ## Variables Reference
 
@@ -262,8 +262,8 @@ Every target is `make <target> [VAR=value ...]`, run from inside `Automated-Test
 
 | Variable          | Default                                                                                | Used by                                                                                                               | What it does                                                                                            |
 | ----------------- | -------------------------------------------------------------------------------------- | --------------------------------------------------------------------------------------------------------------------- | ------------------------------------------------------------------------------------------------------- |
-| `LIBREEDA_ROOT`  | none -- falls back to`$LibreEDA_INSTALL_DIR` if that's set, otherwise errors          | anything that runs the tool (`test`, `regen-%`, `load`, `report_timing`, `floorplan`, `global_placement`) | Path to your LibreEDA build.                                                                     |
-| `LIBREEDA_BIN`   | auto-detected: `$LIBREEDA_ROOT/LibreEDA`, falling back to `$LIBREEDA_ROOT/ThesSTA` or `$LIBREEDA_ROOT/pathviz` (older build names), whichever exists | same as above                                                                                                         | Override if your build uses some other binary name.                                                     |
+| `REFEDA_ROOT`  | none -- falls back to`$refEDA_INSTALL_DIR` if that's set, otherwise errors          | anything that runs the tool (`test`, `regen-%`, `load`, `report_timing`, `floorplan`, `global_placement`) | Path to your refEDA build.                                                                     |
+| `REFEDA_BIN`   | auto-detected: `$REFEDA_ROOT/refEDA`, falling back to `$REFEDA_ROOT/ThesSTA` or `$REFEDA_ROOT/pathviz` (older build names), whichever exists | same as above                                                                                                         | Override if your build uses some other binary name.                                                     |
 | `DESIGN_CONFIG` | `Designs/aes_sky130hs/config.mk`                                                     | `load`, `report_timing`, `floorplan`, `global_placement`, `*-script`                                        | Which`Designs/*/config.mk` to use -- picks both the design and its platform.                          |
 | `PDK_ROOT`      | `./PDK`                                                                              | design-flow targets                                                                                                   | Where to find`PDK/<platform>/` on disk.                                                               |
 | `TIMING_DRIVEN` | unset                                                                                  | `global_placement`                                                                                                  | `=1` pulls in Liberty and passes `-timing_driven`.                                                  |
@@ -293,7 +293,7 @@ Two platforms are supported; only `sky130hs` works out of the box.
 
 ## Running the Design Flow
 
-Each target composes only the Tcl stages it actually needs into a throwaway driver script and runs it through LibreEDA. Logs land in `logs/<platform>/<design>/`, and `report_timing` also drops a copy of its report into `reports/<platform>/<design>/`.
+Each target composes only the Tcl stages it actually needs into a throwaway driver script and runs it through refEDA. Logs land in `logs/<platform>/<design>/`, and `report_timing` also drops a copy of its report into `reports/<platform>/<design>/`.
 
 | Flow                      | Stages run                                                                             | Example                                                               |
 | ------------------------- | -------------------------------------------------------------------------------------- | --------------------------------------------------------------------- |
@@ -315,7 +315,7 @@ Two designs ship, both the same `aes_cipher_top` RTL synthesized against differe
 
 Select one with `DESIGN_CONFIG=Designs/<name>/config.mk` on any flow above -- see the `report_timing` example in the table. A design is just a `config.mk` pointing at a Verilog netlist, an SDC file, a platform name, and floorplan parameters — add a new one by creating `Designs/<name>/config.mk` alongside its netlist/SDC. The platform comes from `PLATFORM` inside that file, not a separate flag; a platform is a pair of stage scripts under `flows/platforms/<name>/` (`load_lef.tcl`, `load_lib.tcl`) — add a new one the same way.
 
-> LibreEDA's `all_inputs`/`all_outputs` ignore all flags (including `-no_clocks`) and always return every port of that direction, clock included. Both designs' SDC files work around this by listing every input/output port explicitly instead of relying on `all_inputs -no_clocks`.
+> refEDA's `all_inputs`/`all_outputs` ignore all flags (including `-no_clocks`) and always return every port of that direction, clock included. Both designs' SDC files work around this by listing every input/output port explicitly instead of relying on `all_inputs -no_clocks`.
 
 ### Interactive and GUI Modes
 
@@ -332,7 +332,7 @@ Both need a real terminal attached — don't run these in a background/piped she
 make report_timing-script          # writes results/<platform>/<design>/report_timing.tcl
 ```
 
-Every flow target has a `-script` counterpart (`load-script`, `floorplan-script`, `global_placement-script`, `report_timing-script`) that writes the composed driver script instead of running it — useful for inspecting exactly what a target does or handing it to someone without the Makefile. Run it later with your build's binary directly, e.g. `LibreEDA -no_gui -f results/<platform>/<design>/report_timing.tcl`, from inside `Automated-Testcases/`.
+Every flow target has a `-script` counterpart (`load-script`, `floorplan-script`, `global_placement-script`, `report_timing-script`) that writes the composed driver script instead of running it — useful for inspecting exactly what a target does or handing it to someone without the Makefile. Run it later with your build's binary directly, e.g. `refEDA -no_gui -f results/<platform>/<design>/report_timing.tcl`, from inside `Automated-Testcases/`.
 
 ### Cleaning Up
 
@@ -347,7 +347,7 @@ make clean_run     # removes only the design-flow output dirs (results/logs/repo
 Automated-Testcases/
   testcase-data/       tiny synthetic LEF/LIB/Verilog fixtures used by make test
   tests/                <name>.tcl + <name>.ok golden files for make test
-  normalize_log.sh       makes LibreEDA output diffable/portable across machines
+  normalize_log.sh       makes refEDA output diffable/portable across machines
 
   flows/
     platforms/asap7/      load_lef.tcl, load_lib.tcl for the ASAP7 PDK
@@ -366,7 +366,7 @@ Automated-Testcases/
 
 ## Known Limitations
 
-- LibreEDA has no persistent design database between stages (`save_def` won't write until placement exists), so every target reloads the PDK and design from scratch rather than checkpointing between stages.
+- refEDA has no persistent design database between stages (`save_def` won't write until placement exists), so every target reloads the PDK and design from scratch rather than checkpointing between stages.
 - Only `load`, `report_timing`, `floorplan`, and `global_placement` stages exist so far — no `place`/`route`/`cts` yet. This will be updated soon as more stages land.
 - Virtual Terminal Environment (VTE) may not work inside the TOOL GUI in some distributions. TCL is still supported through the terminal.
 
@@ -382,11 +382,11 @@ Contribution guidelines: TBD.
 
 ## License
 
-Released under the [BSD-3-Clause license](https://github.com/Circuits-and-Systems-Lab-CASlab/LibreEDA#). The automated testcase suite is part of the parent repository; see [`../LICENSE`](../LICENSE).
+Released under the [BSD-3-Clause license](https://github.com/Circuits-and-Systems-Lab-CASlab/refEDA#). The automated testcase suite is part of the parent repository; see [`../LICENSE`](../LICENSE).
 
 ## Acknowledgments
 
-LibreEDA is developed and maintained by the University of Thessaly's [Circuits and Systems (CAS) Lab](https://caslab.e-ce.uth.gr/). Its enhancement is supported by the [Chips Joint Undertaking (Chips JU)](https://www.chips-ju.europa.eu/), under grant agreement GAP-101252715 ([ODE4EC-DIG](https://github.com/ODE4EC/ode4ec.eu)).
+refEDA is developed and maintained by the University of Thessaly's [Circuits and Systems (CAS) Lab](https://caslab.e-ce.uth.gr/). Its enhancement is supported by the [Chips Joint Undertaking (Chips JU)](https://www.chips-ju.europa.eu/), under grant agreement GAP-101252715 ([ODE4EC-DIG](https://github.com/ODE4EC/ode4ec.eu)).
 
 <p align="center">
   <a href="https://caslab.e-ce.uth.gr/"><img src="https://caslab.e-ce.uth.gr/img/logo/logo_new.png" alt="CAS Lab" height="70"></a>

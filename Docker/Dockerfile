@@ -10,8 +10,8 @@ RUN ${APT_COMMAND} update && ${APT_COMMAND} install build-essential \
     libblas-dev liblapack-dev libopenblas-dev
  
 RUN cp /usr/include/tcl8.6/* /usr/include/ -r
-ENV LibreEDA_INSTALL_DIR=/home/LibreEDA-Project/Tool/build
-ENV LIBREEDA_ROOT=/home/LibreEDA-Project/Tool/build
+ENV refEDA_INSTALL_DIR=/home/refEDA-Project/Tool/build
+ENV REFEDA_ROOT=/home/refEDA-Project/Tool/build
  
 WORKDIR /home/
 CMD ["/bin/bash"]

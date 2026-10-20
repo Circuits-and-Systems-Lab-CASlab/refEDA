@@ -1,7 +1,7 @@
 #!/usr/bin/env bash
 set -e
 
-echo "=== Checking & Installing Build Dependencies for LibreEDA ==="
+echo "=== Checking & Installing Build Dependencies for refEDA ==="
 
 # Helper function to run commands with sudo if not root
 run_cmd() {
@@ -231,8 +231,8 @@ if [ -d "/usr/include/tcl8.6" ] && [ ! -f "/usr/include/tcl.h" ]; then
     run_cmd cp -r /usr/include/tcl8.6/* /usr/include/
 fi
 
-export LibreEDA_INSTALL_DIR="Tool/build/"
-export LIBREEDA_ROOT="Tool/build"
+export refEDA_INSTALL_DIR="Tool/build/"
+export REFEDA_ROOT="Tool/build"
 
 echo "=== Environment Ready ==="
 echo "Active GCC version:"

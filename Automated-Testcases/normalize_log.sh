@@ -2,7 +2,7 @@
 # Strips ANSI codes, version banner, prompt prefix, and CPU-time lines from
 # a raw log, and rewrites the absolute testcase-data path to a placeholder,
 # so golden files diff cleanly across machines. Banner/prompt patterns don't
-# hardcode a tool name, so they keep working across renames (LibreEDA/
+# hardcode a tool name, so they keep working across renames (refEDA/
 # ThesSTA/pathviz).
 #
 # Usage: normalize_log.sh <raw_log_file> <testcase_data_dir>

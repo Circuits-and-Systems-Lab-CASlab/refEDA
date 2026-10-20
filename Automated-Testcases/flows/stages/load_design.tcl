@@ -4,7 +4,7 @@
 
 load_verilog $env(VERILOG_FILE)
 
-# Without a timing library LibreEDA has no time unit to scale against, so
+# Without a timing library refEDA has no time unit to scale against, so
 # create_clock reports garbage (-period 1.0 comes back as 1e9). Skip the
 # SDC entirely when LOAD_LIB=0 instead of sourcing it for a meaningless result.
 if {[info exists env(LOAD_LIB)] && $env(LOAD_LIB) == "1"} {

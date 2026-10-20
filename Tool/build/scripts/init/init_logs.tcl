@@ -1,31 +1,31 @@
-# Generated Date: 2026-09-07 19:33:09
-set __LibreEDA_filename ""
+# Generated Date: 2026-10-20 11:37:48
+set __refEDA_filename ""
 
-# puts "LibreEDA_LOGS_PREFIX: $::env(LibreEDA_LOGS_PREFIX)"
-# puts "LibreEDA_OVERWRITE_LOGS: $::env(LibreEDA_OVERWRITE_LOGS)"
+# puts "refEDA_LOGS_PREFIX: $::env(refEDA_LOGS_PREFIX)"
+# puts "refEDA_OVERWRITE_LOGS: $::env(refEDA_OVERWRITE_LOGS)"
 
-set __LibreEDA_filename $::env(LibreEDA_CMD_FILE)
+set __refEDA_filename $::env(refEDA_CMD_FILE)
 
 
-set __LibreEDA_log_file [open $__LibreEDA_filename "a"]
-puts $__LibreEDA_log_file ""
-close $__LibreEDA_log_file
+set __refEDA_log_file [open $__refEDA_filename "a"]
+puts $__refEDA_log_file ""
+close $__refEDA_log_file
 
-proc logCommand {__LibreEDA_command op} {
-    global __LibreEDA_filename
-    set __LibreEDA_log_file [open $__LibreEDA_filename "a"]
+proc logCommand {__refEDA_command op} {
+    global __refEDA_filename
+    set __refEDA_log_file [open $__refEDA_filename "a"]
 
-    if {[string match "*__LibreEDA_*" $__LibreEDA_command] || [string match "*puts file*" $__LibreEDA_command]} {
-      close $__LibreEDA_log_file
+    if {[string match "*__refEDA_*" $__refEDA_command] || [string match "*puts file*" $__refEDA_command]} {
+      close $__refEDA_log_file
       return
     }
 
-    if {[string match "^source*" $__LibreEDA_command]} {
-      puts $__LibreEDA_log_file "source ${__LibreEDA_command}"
+    if {[string match "^source*" $__refEDA_command]} {
+      puts $__refEDA_log_file "source ${__refEDA_command}"
     }
 
-    puts $__LibreEDA_log_file $__LibreEDA_command
-    close $__LibreEDA_log_file
+    puts $__refEDA_log_file $__refEDA_command
+    close $__refEDA_log_file
 }
 
 set allCommands [info commands]

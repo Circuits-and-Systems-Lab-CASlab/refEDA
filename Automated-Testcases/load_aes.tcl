@@ -1,8 +1,8 @@
-# Quick standalone loader for aes_cipher_top. Drops you at the LibreEDA
+# Quick standalone loader for aes_cipher_top. Drops you at the refEDA
 # prompt. Needs a real terminal attached (no -qamode).
 #
 #   cd Automated-Testcases
-#   /path/to/your/build/LibreEDA -no_gui -f load_aes.tcl
+#   /path/to/your/build/refEDA -no_gui -f load_aes.tcl
 
 set PDK PDK/ASAP7
 set DESIGN Designs/aes_cipher_top

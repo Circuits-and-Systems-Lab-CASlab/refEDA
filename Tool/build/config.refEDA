@@ -1,0 +1,5 @@
+# Generated Date: 2026-09-30 19:30:02
+if {[info exists ::env(pathviz_ROOT_DIR)]} {
+  source $::env(pathviz_ROOT_DIR)/scripts/init/init.tcl
+}
+
