@@ -3,7 +3,6 @@
 A static timing analysis (STA) engine for open-source EDA flows.
 
 [![License](https://img.shields.io/badge/license-BSD--3--Clause-blue)](https://github.com/Circuits-and-Systems-Lab-CASlab/refEDA#)
-
 ## Overview
 
 refEDA evaluates the timing behavior of a digital circuit. The tool computes signal propagation delays, setup and hold times, and other timing constraints, to verify that a design meets its timing requirements.
@@ -233,11 +232,14 @@ Follow [Option A](#option-a--local-setup--execution) or [Option B](#option-b--do
 
 ### 2. Point REFEDA_ROOT at your build
 
+Sourcing the setup script sets `REFEDA_ROOT` (and `refEDA_INSTALL_DIR`) to the build's absolute path:
+
 ```bash
+source Tool/build/refEDA-setup.sh
 cd Automated-Testcases
-export refEDA_INSTALL_DIR=../Tool/build/
-export REFEDA_ROOT=../Tool/build   # wherever your build actually is
 ```
+
+To test a build somewhere else, export `REFEDA_ROOT=/path/to/build` instead.
 
 ### 3. Run the suite
 

@@ -1,0 +1,12 @@
+#!/usr/bin/env bash
+# Blocks `git push` if the regression suite fails locally.
+# Enable once per clone:   git config core.hooksPath .githooks
+# Skip in an emergency:     git push --no-verify
+set -e
+ROOT="$(git rev-parse --show-toplevel)"
+source "$ROOT/Tool/build/refEDA-setup.sh" >/dev/null
+echo "pre-push: running Automated-Testcases (make test)..."
+if ! make -s -C "$ROOT/Automated-Testcases" test; then
+    echo "pre-push: tests FAILED -- push aborted (see Automated-Testcases/tests/results/)."
+    exit 1
+fi

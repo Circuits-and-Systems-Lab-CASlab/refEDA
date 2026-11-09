@@ -10,6 +10,8 @@ RUN ${APT_COMMAND} update && ${APT_COMMAND} install build-essential \
     libblas-dev liblapack-dev libopenblas-dev
  
 RUN cp /usr/include/tcl8.6/* /usr/include/ -r
+# Termcap for the GUI's embedded VTE terminal (otherwise Enter/Backspace don't work)
+RUN infocmp -C xterm > /etc/termcap
 ENV refEDA_INSTALL_DIR=/home/refEDA-Project/Tool/build
 ENV REFEDA_ROOT=/home/refEDA-Project/Tool/build
  

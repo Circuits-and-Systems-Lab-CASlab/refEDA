@@ -1,0 +1,18 @@
+# refEDA environment on Ubuntu 26.04.
+# Dependencies are installed with the repo's own install_dependencies.sh, so the
+# image stays in sync with the local (Option A) setup.
+#
+# Build from the repo root (the script lives there):
+#   docker build -f Docker/Dockerfile.ubuntu26 -t refeda_docker_ubuntu26:v1 .
+FROM ubuntu:26.04
+ENV DEBIAN_FRONTEND=noninteractive
+ENV HOME=/home
+
+COPY install_dependencies.sh /tmp/install_dependencies.sh
+RUN bash /tmp/install_dependencies.sh && rm -rf /var/lib/apt/lists/* /tmp/install_dependencies.sh
+
+ENV refEDA_INSTALL_DIR=/home/refEDA-Project/Tool/build
+ENV REFEDA_ROOT=/home/refEDA-Project/Tool/build
+
+WORKDIR /home/
+CMD ["/bin/bash"]

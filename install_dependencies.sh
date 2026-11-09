@@ -4,9 +4,12 @@ set -e
 echo "=== Checking & Installing Build Dependencies for refEDA ==="
 
 # Helper function to run commands with sudo if not root
+# (DEBIAN_FRONTEND=noninteractive stops apt prompts, e.g. tzdata, from hanging
+#  in containers/CI; passed through `env` because sudo strips the environment)
+export DEBIAN_FRONTEND=noninteractive
 run_cmd() {
     if [ "$EUID" -ne 0 ]; then
-        sudo "$@"
+        sudo env DEBIAN_FRONTEND=noninteractive "$@"
     else
         "$@"
     fi
@@ -205,6 +208,9 @@ elif [ "$OS_ID" = "ubuntu" ] || [ "$OS_ID" = "debian" ]; then
             tar -xf vte-0.28.2.tar.xz
             cd vte-0.28.2
             
+            # VTE 0.28 is old C code: GCC >= 14 turns these warnings into errors
+            # (and GCC 15 defaults to C23), so relax them for this build only.
+            CFLAGS="-O2 -std=gnu17 -Wno-error=incompatible-pointer-types -Wno-error=int-conversion -Wno-error=implicit-function-declaration" \
             ./configure --prefix=/usr --libexecdir=/usr/lib/vte --disable-static --disable-python
             make -j"$(nproc)"
             run_cmd make install
@@ -231,11 +237,23 @@ if [ -d "/usr/include/tcl8.6" ] && [ ! -f "/usr/include/tcl.h" ]; then
     run_cmd cp -r /usr/include/tcl8.6/* /usr/include/
 fi
 
-export refEDA_INSTALL_DIR="Tool/build/"
-export REFEDA_ROOT="Tool/build"
+# The GUI's embedded terminal (VTE 0.28) looks for /usr/share/vte/termcap-0.0/$TERM,
+# then /etc/termcap. If neither exists, Enter/Backspace don't work in the GUI
+# terminal ("Failed to load terminal capabilities from '/etc/termcap'").
+if [ ! -f /etc/termcap ]; then
+    echo "Generating /etc/termcap for the GUI terminal (VTE)..."
+    run_cmd sh -c 'infocmp -C xterm > /etc/termcap'
+fi
 
 echo "=== Environment Ready ==="
 echo "Active GCC version:"
 gcc --version | head -n 1
 echo "Active CMake version:"
 cmake --version | head -n 1
+
+# This script runs in its own shell, so it cannot set variables in yours.
+# refEDA-setup.sh (sourced) sets refEDA_INSTALL_DIR, REFEDA_ROOT and LD_LIBRARY_PATH.
+REPO_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")" && pwd)"
+echo
+echo "Next step -- load the refEDA environment into your shell:"
+echo "  source ${REPO_DIR}/Tool/build/refEDA-setup.sh"
