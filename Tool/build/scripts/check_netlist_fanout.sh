@@ -8,13 +8,13 @@
 #              9/25/2018                  #
 
 ASPSCRIPT=/tmp/$USER/checkfanout.tcl
-ASPLOG=/tmp/$USER/asp.log
+ASPLOG=/tmp/$USER/refEDA.log
 
 VERILOG=
 LEF=
 TECH=
 
-ASP=$(pwd)/pathviz
+ASP=$(pwd)/refEDA
 
 strstr()
 {

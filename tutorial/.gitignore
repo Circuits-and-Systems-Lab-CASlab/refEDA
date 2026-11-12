@@ -1,0 +1,17 @@
+results/
+figures/
+.venv/
+__pycache__/
+*.pyc
+
+# Inputs unpacked or converted by select_design.py.
+Test-Designs/STA-SPICE/selected_1x.def
+# Designs over 100 MB, kept as Test-Designs/large_designs.tar.gz.NN (scripts/pack_large_designs.sh).
+Test-Designs/Black-Parrot/bp_processor_asap7.v
+Test-Designs/Synchronous/netcard.def
+Test-Designs/Synchronous/netcard.v
+Test-Designs/Synchronous/leon3mp.def
+PDK/ASAP7/asap7sc7p5t_28/LIB/CCS/asap7sc7p5t_AO_RVT_TT_ccs_211120.lib
+PDK/ASAP7/asap7sc7p5t_28/LIB/CCS/asap7sc7p5t_OA_RVT_TT_ccs_211120.lib
+PDK/ASAP7/asap7sc7p5t_28/LIB/CCS/asap7sc7p5t_SIMPLE_RVT_TT_ccs_211120.lib
+PDK/ASAP7/asap7sc7p5t_28/LIB/CCS/asap7sc7p5t_SEQ_RVT_TT_ccs_220123.lib

@@ -1,0 +1,201 @@
+VERSION 5.7 ;
+DIVIDERCHAR "/" ;
+BUSBITCHARS "[]" ;
+DESIGN counter4 ;
+
+UNITS DISTANCE MICRONS 1000 ;
+PROPERTYDEFINITIONS
+DESIGN FE_CORE_BOX_LL_X REAL 0.000 ;
+DESIGN FE_CORE_BOX_UR_X REAL 39.360 ;
+DESIGN FE_CORE_BOX_LL_Y REAL 0.000 ;
+DESIGN FE_CORE_BOX_UR_Y REAL 37.800 ;
+END PROPERTYDEFINITIONS 
+
+DIEAREA ( 0 0 ) ( 39360 37800 ) ;
+
+ROW COREROW_0 CoreSite 0 0 FS DO 82 BY 1 STEP 480 0 ;
+ROW COREROW_1 CoreSite 0 3780 N DO 82 BY 1 STEP 480 0 ;
+ROW COREROW_2 CoreSite 0 7560 FS DO 82 BY 1 STEP 480 0 ;
+ROW COREROW_3 CoreSite 0 11340 N DO 82 BY 1 STEP 480 0 ;
+ROW COREROW_4 CoreSite 0 15120 FS DO 82 BY 1 STEP 480 0 ;
+ROW COREROW_5 CoreSite 0 18900 N DO 82 BY 1 STEP 480 0 ;
+ROW COREROW_6 CoreSite 0 22680 FS DO 82 BY 1 STEP 480 0 ;
+ROW COREROW_7 CoreSite 0 26460 N DO 82 BY 1 STEP 480 0 ;
+ROW COREROW_8 CoreSite 0 30240 FS DO 82 BY 1 STEP 480 0 ;
+ROW COREROW_9 CoreSite 0 34020 N DO 82 BY 1 STEP 480 0 ;
+
+TRACKS X 0 DO 82 STEP 480 LAYER Metal4 ;
+TRACKS Y 0 DO 78 STEP 480 LAYER Metal4 ;
+TRACKS X 0 DO 93 STEP 420 LAYER Metal5 ;
+TRACKS Y 0 DO 90 STEP 420 LAYER Metal5 ;
+TRACKS X 0 DO 93 STEP 420 LAYER Metal1 ;
+TRACKS Y 0 DO 90 STEP 420 LAYER Metal1 ;
+TRACKS X 0 DO 82 STEP 480 LAYER Metal2 ;
+TRACKS Y 0 DO 78 STEP 480 LAYER Metal2 ;
+TRACKS X 0 DO 93 STEP 420 LAYER Metal3 ;
+TRACKS Y 0 DO 90 STEP 420 LAYER Metal3 ;
+TRACKS X 2000 DO 9 STEP 4000 LAYER TopMetal2 ;
+TRACKS Y 2000 DO 9 STEP 4000 LAYER TopMetal2 ;
+TRACKS X 1640 DO 12 STEP 3280 LAYER TopMetal1 ;
+TRACKS Y 1640 DO 11 STEP 3280 LAYER TopMetal1 ;
+
+COMPONENTS 16 ;
+- _19_ sg13g2_o21ai_1 
+  + PLACED ( 18240 22680 ) FS ;
+- _18_ sg13g2_and4_1 
+  + PLACED ( 18720 15120 ) FS ;
+- _13_ sg13g2_and3_1 
+  + PLACED ( 22560 15120 ) FS ;
+- _20_ sg13g2_nor2_1 
+  + PLACED ( 16320 22680 ) FS ;
+- _12_ sg13g2_inv_1 
+  + PLACED ( 23040 22680 ) FS ;
+- _21_ sg13g2_o21ai_1 
+  + PLACED ( 18720 11340 ) N ;
+- _22_ sg13g2_a21oi_1 
+  + PLACED ( 16320 15120 ) FS ;
+- _23_ sg13g2_dfrbpq_1 
+  + PLACED ( 19200 18900 ) N ;
+- _17_ sg13g2_a21oi_1 
+  + PLACED ( 21120 11340 ) N ;
+- _24_ sg13g2_dfrbpq_1 
+  + PLACED ( 3360 22680 ) FS ;
+- _16_ sg13g2_o21ai_1 
+  + PLACED ( 25920 15120 ) FS ;
+- _25_ sg13g2_dfrbpq_1 
+  + PLACED ( 6240 18900 ) N ;
+- _15_ sg13g2_nor3_1 
+  + PLACED ( 20640 22680 ) FS ;
+- _26_ sg13g2_dfrbpq_1 
+  + PLACED ( 3360 15120 ) FS ;
+- _14_ sg13g2_a21oi_1 
+  + PLACED ( 24480 22680 ) FS ;
+- _27_ sg13g2_tiehi 
+  + PLACED ( 16800 11340 ) N ;
+END COMPONENTS
+
+PINS 7 ;
+- clk + NET clk + DIRECTION INPUT + USE SIGNAL
+  + LAYER Metal3 ( -100 0 ) ( 100 800 )
+  + PLACED ( 0 18900 ) E ;
+- reset + NET reset + DIRECTION INPUT + USE SIGNAL
+  + LAYER Metal2 ( -100 0 ) ( 100 -800 )
+  + PLACED ( 19680 37800 ) N ;
+- enable + NET enable + DIRECTION INPUT + USE SIGNAL
+  + LAYER Metal3 ( -100 0 ) ( 100 800 )
+  + PLACED ( 39360 18900 ) W ;
+- count[3] + NET count[3] + DIRECTION OUTPUT + USE SIGNAL
+  + LAYER Metal2 ( -100 0 ) ( 100 800 )
+  + PLACED ( 19680 0 ) S ;
+- count[2] + NET count[2] + DIRECTION OUTPUT + USE SIGNAL
+  + LAYER Metal3 ( -100 0 ) ( 100 800 )
+  + PLACED ( 0 18480 ) E ;
+- count[1] + NET count[1] + DIRECTION OUTPUT + USE SIGNAL
+  + LAYER Metal2 ( -100 0 ) ( 100 -800 )
+  + PLACED ( 20160 37800 ) N ;
+- count[0] + NET count[0] + DIRECTION OUTPUT + USE SIGNAL
+  + LAYER Metal3 ( -100 0 ) ( 100 800 )
+  + PLACED ( 39360 18480 ) W ;
+END PINS
+
+NETS 19 ;
+- clk
+  ( PIN clk )  ( _23_ CLK )
+  ( _24_ CLK )
+  ( _25_ CLK )
+  ( _26_ CLK )
+ ;
+- reset
+  ( PIN reset )  ( _12_ A )
+  ( _15_ A )
+ ;
+- enable
+  ( PIN enable )  ( _13_ A )
+  ( _14_ A1 )
+  ( _16_ A1 )
+  ( _17_ A1 )
+  ( _18_ A )
+ ;
+- count[3]
+  ( PIN count[3] )  ( _21_ A1 )
+  ( _22_ A1 )
+  ( _26_ Q )
+ ;
+- count[2]
+  ( PIN count[2] )  ( _18_ B )
+  ( _19_ A1 )
+  ( _25_ Q )
+ ;
+- count[1]
+  ( PIN count[1] )  ( _13_ C )
+  ( _14_ B1 )
+  ( _18_ D )
+  ( _24_ Q )
+ ;
+- count[0]
+  ( PIN count[0] )  ( _13_ B )
+  ( _14_ A2 )
+  ( _16_ A2 )
+  ( _17_ A2 )
+  ( _18_ C )
+  ( _23_ Q )
+ ;
+- _19__net_Y
+  ( _19_ Y )
+  ( _20_ B )
+ ;
+- _18__net_X
+  ( _18_ X )
+  ( _20_ A )
+  ( _21_ A2 )
+  ( _22_ A2 )
+ ;
+- _13__net_X
+  ( _13_ X )
+  ( _15_ B )
+  ( _19_ A2 )
+ ;
+- _20__net_Y
+  ( _20_ Y )
+  ( _25_ D )
+ ;
+- _12__net_Y
+  ( _12_ Y )
+  ( _16_ B1 )
+  ( _19_ B1 )
+  ( _21_ B1 )
+ ;
+- _21__net_Y
+  ( _21_ Y )
+  ( _22_ B1 )
+ ;
+- _22__net_Y
+  ( _22_ Y )
+  ( _26_ D )
+ ;
+- _17__net_Y
+  ( _17_ Y )
+  ( _23_ D )
+ ;
+- _16__net_Y
+  ( _16_ Y )
+  ( _17_ B1 )
+ ;
+- _15__net_Y
+  ( _15_ Y )
+  ( _24_ D )
+ ;
+- _14__net_Y
+  ( _14_ Y )
+  ( _15_ C )
+ ;
+- _27__net_L_HI
+  ( _27_ L_HI )
+  ( _23_ RESET_B )
+  ( _24_ RESET_B )
+  ( _25_ RESET_B )
+  ( _26_ RESET_B )
+ ;
+END NETS
+
+END DESIGN

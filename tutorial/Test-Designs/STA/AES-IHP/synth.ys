@@ -1,0 +1,16 @@
+# Run from this directory: yosys -s synth.ys
+read_verilog -Irtl rtl/aes_cipher_top.v rtl/aes_key_expand_128.v rtl/aes_rcon.v rtl/aes_sbox.v
+synth -top aes_cipher_top -flatten
+dfflibmap -liberty ../../../PDK/IHP-Open-PDK/sg13g2_stdcell_typ_1p20V_25C.lib
+abc -liberty ../../../PDK/IHP-Open-PDK/sg13g2_stdcell_typ_1p20V_25C.lib
+hilomap -hicell sg13g2_tiehi L_HI -locell sg13g2_tielo L_LO
+clean
+read_liberty -lib ../../../PDK/IHP-Open-PDK/sg13g2_stdcell_typ_1p20V_25C.lib
+check -assert
+stat -liberty ../../../PDK/IHP-Open-PDK/sg13g2_stdcell_typ_1p20V_25C.lib
+delete t:$scopeinfo
+rename -hide
+clean -purge
+rename -enumerate
+splitnets
+write_verilog -noattr -noexpr -simple-lhs aes_cipher_top.v

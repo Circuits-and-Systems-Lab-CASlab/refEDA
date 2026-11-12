@@ -1,4 +1,4 @@
-# Generated Date: 2026-10-20 11:37:48
+# Generated Date: 2026-11-12 15:11:59
 # Initialize the TCL environment except if $::env(NO_CMD) is set to 1
 if {[info exists ::env(refEDA_NO_CMD)] && $::env(refEDA_NO_CMD) != 1} {
   source $::env(refEDA_ROOT_DIR)/scripts/init/init_logs.tcl

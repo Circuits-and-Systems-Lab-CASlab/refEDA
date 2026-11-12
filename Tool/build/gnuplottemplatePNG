@@ -1,0 +1,3 @@
+set term pngcairo size 280,320
+set output "TOPLOT.png"
+plot 'TOPLOT' w lp

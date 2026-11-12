@@ -11,6 +11,14 @@ REFEDA_ROOT ?= $(refEDA_INSTALL_DIR)
 # Override REFEDA_BIN directly if needed.
 REFEDA_BIN ?= $(firstword $(wildcard $(REFEDA_ROOT)/refEDA $(REFEDA_ROOT)/ThesSTA $(REFEDA_ROOT)/pathviz))
 
+# The release refEDA has no QA mode: it rejects -qamode. A failing script still ends a batch
+# run (stdin closed): the tool exits at the end of input with exit code 1. For a development
+# build, QAMODE=-qamode stops at the first Tcl error instead (exit code 13).
+QAMODE ?=
+
+# bash for pipefail: the design flows pipe the tool through tee, whose status would hide a failure
+SHELL := /bin/bash
+
 TEST_DIR    := tests
 DATA_DIR    := $(abspath testcase-data)
 RESULT_DIR  := $(TEST_DIR)/results
@@ -68,7 +76,7 @@ $(RESULT_DIR):
 	@mkdir -p $(RESULT_DIR)
 
 $(TESTS): % : $(TEST_DIR)/%.tcl check-refeda | $(RESULT_DIR)
-	@$(REFEDA_BIN) -no_gui -qamode -f $< < /dev/null > $(RESULT_DIR)/$@.raw 2>&1; \
+	@$(REFEDA_BIN) -no_gui $(QAMODE) -f $< < /dev/null > $(RESULT_DIR)/$@.raw 2>&1; \
 	STATUS=$$?; \
 	./normalize_log.sh $(RESULT_DIR)/$@.raw $(DATA_DIR) > $(RESULT_DIR)/$@.log; \
 	if [ $$STATUS -ne 0 ]; then \
@@ -85,7 +93,7 @@ $(TESTS): % : $(TEST_DIR)/%.tcl check-refeda | $(RESULT_DIR)
 
 # Inspect the diff before committing the regenerated golden file.
 regen-%: check-refeda | $(RESULT_DIR) ## Regenerate a golden file, e.g. `make regen-load_lef`
-	@$(REFEDA_BIN) -no_gui -qamode -f $(TEST_DIR)/$*.tcl < /dev/null > $(RESULT_DIR)/$*.raw 2>&1; \
+	@$(REFEDA_BIN) -no_gui $(QAMODE) -f $(TEST_DIR)/$*.tcl < /dev/null > $(RESULT_DIR)/$*.raw 2>&1; \
 	./normalize_log.sh $(RESULT_DIR)/$*.raw $(DATA_DIR) > $(TEST_DIR)/$*.ok; \
 	echo "Regenerated golden output: $(TEST_DIR)/$*.ok"
 
@@ -148,15 +156,15 @@ export CORE_UTILISATION
 export CORE_ASPECT_RATIO
 export PDK_ROOT
 
-# Batch runs need -qamode + closed stdin, otherwise an unattended `exit`
-# blocks forever re-prompting "Are you sure you want to exit?" against EOF.
+# Batch runs need a closed stdin: the tool then exits at the end of input (exit code 1 if the
+# script failed). QAMODE=-qamode (development builds only) stops at the first Tcl error.
 # Interactive/GUI runs need the opposite: a real terminal attached, and no
 # -qamode (it would abort the prompt loop on the first typo).
 ifneq (,$(filter 1,$(INTERACTIVE) $(GUI)))
   REFEDA_MODE_FLAGS :=
   REFEDA_STDIN      :=
 else
-  REFEDA_MODE_FLAGS := -qamode
+  REFEDA_MODE_FLAGS := $(QAMODE)
   REFEDA_STDIN      := < /dev/null
 endif
 
@@ -181,7 +189,7 @@ endef
 define RUN_STAGES
 	@mkdir -p $(LOG_DIR) $(OBJECTS_DIR)
 	$(call COMPOSE_STAGES,$1,$(OBJECTS_DIR)/driver.tcl)
-	$(REFEDA_BIN) $(REFEDA_GUI_FLAG) $(REFEDA_MODE_FLAGS) -f $(OBJECTS_DIR)/driver.tcl $(REFEDA_STDIN) 2>&1 | tee $2
+	set -o pipefail; $(REFEDA_BIN) $(REFEDA_GUI_FLAG) $(REFEDA_MODE_FLAGS) -f $(OBJECTS_DIR)/driver.tcl $(REFEDA_STDIN) 2>&1 | tee $2
 endef
 
 LOAD_STAGES              := $(PLATFORM_DIR)/load_lef stages/load_design

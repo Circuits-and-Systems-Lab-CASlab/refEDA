@@ -1,0 +1,55 @@
+design	top	clock	period_ps	fall_ps	netlist	def	cells	flip_flops	geometry_scale	clock_source	source	routed_def	spef	saif	category
+simple	simple	ispd_clk	50	25	Test-Designs/Synchronous/simple.v	Test-Designs/Synchronous/simple.def	3	1	4	source SDC	/CASNFSHOME2/home/kvarakliotis/work/ISCAS_Special_Session/asap/simple/innovus/simple				synchronous
+counter	counter	clk	2000	1000	Test-Designs/Synchronous/counter.v	Test-Designs/Synchronous/counter.def	229	32	4	source SDC	/home/kvarakliotis/PnR/Innovus/innovus-easy-pnr/runs/asap7_20261027_083059_k7C4Er/results/def/03_place.v				synchronous
+gcd	gcd	clk	2000	1000	Test-Designs/Synchronous/gcd.v	Test-Designs/Synchronous/gcd.def	248	35	4	tutorial assumption	/CASNFSHOME2/home/kvarakliotis/work/OpenROAD/OpenROAD-flow-scripts/flow/designs/src/gcd/gcd.v				synchronous
+uart	uart	clk	2000	1000	Test-Designs/Synchronous/uart.v	Test-Designs/Synchronous/uart.def	417	79	4	tutorial assumption	/CASNFSHOME2/home/kvarakliotis/work/OpenROAD/OpenROAD-flow-scripts/flow/designs/src/uart/				synchronous
+mac	mac	clk	2000	1000	Test-Designs/Synchronous/mac.v	Test-Designs/Synchronous/mac.def	439	32	4	tutorial assumption	/home/kvarakliotis/Software_SET/Designs/RTL/mac.v				synchronous
+DMA	DMA_fast	ispd_clk	770.000000	385.000000	Test-Designs/Synchronous/DMA.v	Test-Designs/Synchronous/DMA.def	22518	2192	4	source SDC	/CASNFSHOME2/home/kvarakliotis/work/ISCAS_Special_Session/asap/DMA/innovus/DMA				synchronous
+pci_bridge32	pci_bridge32_fast	ispd_clk	660.000000	330.000000	Test-Designs/Synchronous/pci_bridge32.v	Test-Designs/Synchronous/pci_bridge32.def	25310	3359	4	source SDC	/CASNFSHOME2/home/kvarakliotis/work/ISCAS_Special_Session/asap/pci_bridge32/innovus/pci_bridge32				synchronous
+des_perf	des_perf_fast	ispd_clk	735.000000	367.500000	Test-Designs/Synchronous/des_perf.v	Test-Designs/Synchronous/des_perf.def	99596	8802	4	source SDC	/CASNFSHOME2/home/kvarakliotis/work/ISCAS_Special_Session/asap/des_perf/innovus/des_perf				synchronous
+vga_lcd	vga_lcd_fast	ispd_clk	610.000000	305.000000	Test-Designs/Synchronous/vga_lcd.v	Test-Designs/Synchronous/vga_lcd.def	131368	17079	4	source SDC	/CASNFSHOME2/home/kvarakliotis/work/ISCAS_Special_Session/asap/vga_lcd/innovus/vga_lcd				synchronous
+b19	b19_fast	ispd_clk	3100.000000	1050.000000	Test-Designs/Synchronous/b19.v	Test-Designs/Synchronous/b19.def	208471	6594	4	source SDC	/CASNFSHOME2/home/kvarakliotis/work/ISCAS_Special_Session/asap/b19/innovus/b19				synchronous
+leon3mp	leon3mp_fast	ispd_clk	1500.000000	750.000000	Test-Designs/Synchronous/leon3mp.v	Test-Designs/Synchronous/leon3mp.def	557427	108839	4	source SDC	/CASNFSHOME2/home/kvarakliotis/work/ISCAS_Special_Session/asap/leon3mp/innovus/leon3mp				synchronous
+netcard	netcard_fast	ispd_clk	1900.000000	950.000000	Test-Designs/Synchronous/netcard.v	Test-Designs/Synchronous/netcard.def	862951	97831	4	source SDC	/CASNFSHOME2/home/kvarakliotis/work/ISCAS_Special_Session/asap/netcard/innovus/netcard				synchronous
+ring_enable	ring_en				Test-Designs/Asynchronous/ring_enable_asap7.v		3	0	1	event graph	ASAP7 adaptation of the enabled ring oscillator				asynchronous
+click_scan	click				Test-Designs/Asynchronous/click_scan_asap7.v		12	1	1	event graph	ASAP7 adaptation of the scan-capable Click stage				asynchronous
+click_control_ring	toplevel				Test-Designs/Asynchronous/click_control_ring_asap7.v		14	2	1	event graph	Tutorial two-stage Click control ring				asynchronous
+click_bundled_data	toplevel				Test-Designs/Asynchronous/click_2stage_ring_asap7.v		20	5	1	event graph	ASAP7 adaptation of the QA Click ring with datapath				asynchronous
+click_datapath_fanout	toplevel				Test-Designs/Asynchronous/click_datapath_fanout_asap7.v		28	14	1	event graph	ASAP7 adaptation of the Click ring with a buffered register bank				asynchronous
+bf_chain	bf_chain	clk	1000	500	Test-Designs/STA-SPICE/bf_chain.v	Test-Designs/STA-SPICE/bf_chain.def	21	0	1	STA-SPICE Tcl constraint	Tutorial STA-SPICE buffer chain	Test-Designs/STA-SPICE/bf_chain_route.def	Test-Designs/STA-SPICE/bf_chain.spef		sta-spice
+c499	c499	clk	1000	500	Test-Designs/STA-SPICE/c499.v	Test-Designs/STA-SPICE/c499.def	161	0	1	STA-SPICE Tcl constraint	ISCAS-85 c499, ASAP7 placed and routed	Test-Designs/STA-SPICE/c499_route.def	Test-Designs/STA-SPICE/c499.spef		sta-spice
+c1908	c1908	clk	1000	500	Test-Designs/STA-SPICE/c1908.v	Test-Designs/STA-SPICE/c1908.def	177	0	1	STA-SPICE Tcl constraint	ISCAS-85 c1908, ASAP7 placed and routed	Test-Designs/STA-SPICE/c1908_route.def	Test-Designs/STA-SPICE/c1908.spef		sta-spice
+ihp_open_pdk_counter4	counter4	clk	2000	1000	Test-Designs/IHP-Open-PDK/counter4.v	Test-Designs/IHP-Open-PDK/counter4.def	16	4	1	IHP-Open-PDK tutorial constraint	Test-Designs/IHP-Open-PDK/counter4.rtl.v				ihp-open-pdk
+ihp_ring_enable	ring_en				Test-Designs/IHP-Open-PDK/ring_enable.v		3	0	1	event graph	Test-Designs/Asynchronous/ring_enable_asap7.v				ihp-open-pdk
+ihp_click_scan	click				Test-Designs/IHP-Open-PDK/click_scan.v		13	1	1	event graph	Test-Designs/Asynchronous/click_scan_asap7.v				ihp-open-pdk
+ihp_click_control_ring	toplevel				Test-Designs/IHP-Open-PDK/click_control_ring.v		16	2	1	event graph	Test-Designs/Asynchronous/click_control_ring_asap7.v				ihp-open-pdk
+ihp_click_bundled_data	toplevel				Test-Designs/IHP-Open-PDK/click_2stage_ring.v		23	5	1	event graph	Test-Designs/Asynchronous/click_2stage_ring_asap7.v				ihp-open-pdk
+ihp_click_datapath_fanout	toplevel				Test-Designs/IHP-Open-PDK/click_datapath_fanout.v		31	14	1	event graph	Test-Designs/Asynchronous/click_datapath_fanout_asap7.v				ihp-open-pdk
+black_parrot	bp_processor	clk_i;rt_clk_i			Test-Designs/Black-Parrot/bp_processor_asap7.v		2191516	657938	4	CDC Tcl clocks; see CDC/README.md	Black Parrot ASAP7 mapped netlist				cdc
+ol_fifo_async	olo_base_fifo_async	In_Clk;Out_Clk			Test-Designs/SKY130/ol_fifo_async.v		15473	188	1	STA/ol_fifo_async.tcl (2 ns and 10 ns)	Restored SKY130 dual-clock FIFO example				sky130
+mr0	master_read0_net				Test-Designs/Asynchronous/mr0_asap7.v		56	0	1	event graph	MR0 gate equations from the October 2026 AIPO example; mapped to ASAP7				asynchronous
+ihp_mr0	master_read0_net				Test-Designs/IHP-Open-PDK/mr0.v		60	0	1	event graph	Test-Designs/Asynchronous/mr0_asap7.v; equivalent SG13G2 gate decomposition				ihp-open-pdk
+click_three_stage	toplevel				Test-Designs/Asynchronous/click_three_stage_asap7.v		43	6	1	event graph	October 2026 AIPO circuit; ASAP7 gate remapping				asynchronous
+ihp_click_three_stage	toplevel				Test-Designs/IHP-Open-PDK/click_three_stage.v		35	6	1	event graph	October 2026 AIPO circuit; IHP-Open-PDK gate remapping				ihp-open-pdk
+pausible_clock	SynchronizerToolkitPausibleClk				Test-Designs/Asynchronous/pausible_clock_asap7.v		131	18	1	event graph	October 2026 AIPO circuit; ASAP7 gate remapping				asynchronous
+ihp_pausible_clock	SynchronizerToolkitPausibleClk				Test-Designs/IHP-Open-PDK/pausible_clock.v		59	18	1	event graph	October 2026 AIPO circuit; IHP-Open-PDK gate remapping				ihp-open-pdk
+cla_adder	cla_adder_async				Test-Designs/Asynchronous/cla_adder_asap7.v		633	98	1	event graph	October 2026 AIPO circuit; ASAP7 gate remapping				asynchronous
+ihp_cla_adder	cla_adder_async				Test-Designs/IHP-Open-PDK/cla_adder.v		489	98	1	event graph	October 2026 AIPO circuit; IHP-Open-PDK gate remapping				ihp-open-pdk
+alu_pipeline	alu_pipe_async				Test-Designs/Asynchronous/alu_pipeline_asap7.v		114	21	1	event graph	October 2026 AIPO circuit; ASAP7 gate remapping				asynchronous
+ihp_alu_pipeline	alu_pipe_async				Test-Designs/IHP-Open-PDK/alu_pipeline.v		94	21	1	event graph	October 2026 AIPO circuit; IHP-Open-PDK gate remapping				ihp-open-pdk
+bundled_data_token	bd_flop_ctrl_tok				Test-Designs/Asynchronous/bundled_data_token_asap7.v		88	4	1	event graph	October 2026 AIPO circuit; ASAP7 gate remapping				asynchronous
+ihp_bundled_data_token	bd_flop_ctrl_tok				Test-Designs/IHP-Open-PDK/bundled_data_token.v		88	4	1	event graph	October 2026 AIPO circuit; IHP-Open-PDK gate remapping				ihp-open-pdk
+send_controller	SEND_ctrl_slackless				Test-Designs/Asynchronous/send_controller_asap7.v		104	5	1	event graph	October 2026 AIPO circuit; ASAP7 gate remapping				asynchronous
+ihp_send_controller	SEND_ctrl_slackless				Test-Designs/IHP-Open-PDK/send_controller.v		92	5	1	event graph	October 2026 AIPO circuit; IHP-Open-PDK gate remapping				ihp-open-pdk
+ff_and_inv_and_ff	ff_and_inv_and_ff	clk	1000	500	Test-Designs/STA/ff_and_inv_and_ff_asap7.v		5	2	1	Fixed STA/Power Tcl constraints	Supplied STA/Power tutorial example				sta
+cdc6	cdc6	clk1;clk2;clk3			Test-Designs/STA/cdc6_ihp.v		12	5	1	Fixed STA/Power Tcl constraints	Supplied STA/Power tutorial example				sta
+whenconditions	and_or_gate	clk	10000	5000	Test-Designs/STA/whenconditions_ihp.v		1	0	1	Fixed STA/Power Tcl constraints	Supplied STA/Power tutorial example				sta
+afifo_16x2	afifo	i_rclk;i_wclk			Test-Designs/STA/afifo_16x2_ihp.v		249	72	1	Fixed STA/Power Tcl constraints	Supplied STA/Power tutorial example				sta
+bumblebeee	bumblebeee	clk	2000	1000	Test-Designs/STA/bumblebeee_ihp.v		13	5	1	Fixed STA/Power Tcl constraints	Supplied STA/Power tutorial example				sta
+power_c17	c17	clk	10000	5000	Test-Designs/Power/c17/c17.v		6	0	1	Fixed STA/Power Tcl constraints	Supplied STA/Power tutorial example			Test-Designs/Power/c17/c17.saif	power
+power_c499	c499	clk	10000	5000	Test-Designs/Power/c499/c499.v		177	0	1	Fixed STA/Power Tcl constraints	Supplied STA/Power tutorial example			Test-Designs/Power/c499/c499.saif	power
+power_c1908	c1908	clk	10000	5000	Test-Designs/Power/c1908/c1908.v		218	0	1	Fixed STA/Power Tcl constraints	Supplied STA/Power tutorial example			Test-Designs/Power/c1908/c1908.saif	power
+sta_m65c02_alu	M65C02_ALU	Clk	300	150	Test-Designs/STA/M65C02-ALU/M65C02_ALU.v		1061	64	1	Fixed STA Tcl constraint	Supplied China 2026 example; legacy asynchronous flops adapted to bundled ASAP7 cells				sta
+sta_aes_ihp	aes_cipher_top	clk	2000	1000	Test-Designs/STA/AES-IHP/aes_cipher_top.v		10677	562	1	Fixed STA Tcl constraint	Open AES encryption RTL; SG13G2 synthesis recipe in Test-Designs/STA/AES-IHP/synth.ys				sta
+sta_tv80_asap7	tv80	clk	1500	750	Test-Designs/STA/TV80-ASAP7/tv80.v	Test-Designs/STA/TV80-ASAP7/tv80.def	3211	359	1	Fixed STA Tcl constraint	Supplied China 2026 TV80 example; ASAP7 four Vt families				sta
+sta_tv80_sky130	tv80	clk	3000	1500	Test-Designs/STA/TV80-SKY130/tv80.v	Test-Designs/STA/TV80-SKY130/tv80.def	3140	359	1	Fixed STA Tcl constraint	Supplied China 2026 TV80 example; SKY130 HD				sta
