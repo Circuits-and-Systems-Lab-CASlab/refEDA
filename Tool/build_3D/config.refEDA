@@ -1,0 +1,5 @@
+# Generated Date: 2026-11-12 18:38:59
+if {[info exists ::env(refEDA_ROOT_DIR)]} {
+  source $::env(refEDA_ROOT_DIR)/scripts/init/init.tcl
+}
+

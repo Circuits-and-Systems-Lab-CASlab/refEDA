@@ -1,0 +1,59 @@
+=========================================================================================================
+
+ISPD 2012 Sizing Contest Benchmarks
+
+=========================================================================================================
+
+Please cite the following paper when you refer to these benchmarks in a publication:
+M. M. Ozdal, C. Amin, A. Ayupov, S. Burns, G. Wilke, C. Zhuo, "The ISPD -2012 Discrete Cell Sizing Contest and Benchmark Suite", Proc. ACM International Symposium on Physical Design, pp. 161-164, 2012. 
+
+=========================================================================================================
+
+Top level direcotry:
+ispd2012/
+
+Technology library:
+ispd2012/lib - technology library directory
+ispd2012/lib/contest.lib - Synopsys .lib format (ASCII)
+
+ISPD 2012 contest benchmarks are based on the IWLS 2005 benchmark netlists that were remapped to the contest library. 
+Besides remapping, minor changes could be done to the netlists for simplification purposes. For every benchmark we picked from the IWLS set, we provide 
+two versions of collaterals that are different in a target clock period specified in .sdc files. A benchmark name with "_fast" label correspond to a tighter 
+(smaller) clock period. Label "_slow" corresponds to a more relaxed (larger) clock period. 
+ispd2012/simple - a 3 cell testcase used for explanation of the formats in the presentation (not part of IWLS benchmarks)
+ispd2012/pci_bridge32_{fast/slow} - pci_bridge32 benchmark from the OpenCores set (original netlist: IWLS_benchmarks_2005_V_1.0/opencores/netlist/pci_bridge.v)
+ispd2012/des_perf_{fast/slow} - des_perf benchmark from the OpenCores set (original netlist: IWLS_benchmarks_2005_V_1.0/opencores/netlist/des_perf.v)
+ispd2012/DMA_{fast/slow} - DMA benchmark from the Faraday set (original netlist: IWLS_benchmarks_2005_V_1.0/faraday/netlist/DMA.v)
+ispd2012/leon3mp_{fast/slow} - leon3mp benchmark from the Gaisler set (original netlist: IWLS_benchmarks_2005_V_1.0/gaisler/netlist/leon3mp.v)
+ispd2012/netcard_{fast/slow} - netcard benchmark from the Gaisler set (original netlist: IWLS_benchmarks_2005_V_1.0/gaisler/netlist/netcard.v)
+ispd2012/vga_lcd_{fast/slow} - vga_lcd benchmark from the OpenCores set (original netlist: IWLS_benchmarks_2005_V_1.0/opencores/netlist/vga_lcd.v)
+ispd2012/b19_{fast/slow} - b19 benchmark from the ITC'99 set (original netlist: IWLS_benchmarks_2005_V_1.0/itc99/netlist/b19.v)
+
+                              Benchmark statistics:
+---- Name ----|--- Input #---|--- Output #---|--- Comb cell # ---|--- Seq cell #---|--- Total cell #---| 
+ simple       |          3   |           1   |              2    |             1   |                3  |
+ DMA          |        683   |         276   |          23109    |          2192   |            25301  |
+ pci_bridge32 |        160   |         201   |          29844    |          3359   |            33203  |
+ des_perf     |        234   |         140   |         102427    |          8802   |           111229  |
+ vga_lcd      |         85   |          99   |         147812    |         17079   |           164891  |
+ b19          |         22   |          25   |         212674    |          6594   |           219268  |
+ leon3mp      |        254   |          79   |         540352    |        108839   |           649191  |
+ netcard      |       1836   |          10   |         860949    |         97831   |           958780  |
+ -------------------------------------------------------------------------------------------------------
+ 
+In each benchmark directory, you have at least the following files:
+ispd2012/$bench_name/$bench_name.v - netlist in Verilog format
+ispd2012/$bench_name/$bench_name.sdc - environment and timing constraints in .sdc format
+ispd2012/$bench_name/$bench_name.spef - wire parasitics information in .spef format
+ 
+For the simple benchmark we also include an example of the .sizes file:
+ispd2012/simple/simple.sizes
+
+Parser helpers directory contains C++ code to help you parse these benchmarks (.lib, .v, .sdc, .spef, .timing files). 
+Please note, this is not a generic parser of given formats. It will parse only the very restricted form of those formats
+that we follow in our benchmark files.
+ispd2012/parser_helpers
+ispd2012/parser_helpers/parser_helper.cpp
+ispd2012/parser_helpers/parser_helper.h
+
+Please refer to the main function in parser_helper.cpp as an example on how to use the parser classes provided in this package.

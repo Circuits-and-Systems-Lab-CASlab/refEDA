@@ -34,6 +34,10 @@ figures](#finding-and-checking-your-results) for the saved outputs.
 | Placement | [15. Detailed placement](#15-run-detailed-placement) | Refine a legal DEF placement with local cell moves | [detail_placement.tcl](Placement/detail_placement.tcl) |
 | Placement | [16. Placement from netlist](#16-gate-level-placement) | Create the floorplan, place I/Os, and run global and detailed placement | [gate-level-placement.tcl](Placement/gate-level-placement.tcl) |
 | Placement | [17. RADHARD legalisation](#17-separate-redundant-registers-with-radhard-legalisation) | Insert redundant registers and enforce their separation | [radhard_legalisation.tcl](Radhard/radhard_legalisation.tcl) |
+| 3D | [18. 3D placement](#18-place-a-design-on-two-tiers-3d) | Partition a netlist into two tiers, then place, legalise and detail-place it in 3D | [Three 3D scripts](#3d-scripts) |
+
+Exercise 18 uses the 3D build of refEDA, `../Tool/build_3D/refEDA`; all other exercises use
+`../Tool/build/refEDA`.
 
 The small placement and STA examples are suitable starting points. The full Black Parrot
 run is substantially larger than the other examples. Exercise 5 and
@@ -58,7 +62,9 @@ Run the remaining shell commands from this directory.
 
 The tool is refEDA. From `tutorial/`, its executable is `../Tool/build/refEDA`. If your executable is installed elsewhere,
 replace `../Tool/build/refEDA` in the commands with its location. The executable must support the
-commands used by the chosen exercise.
+commands used by the chosen exercise. The 3D placement of [exercise 18](#18-place-a-design-on-two-tiers-3d)
+needs the 3D build, `../Tool/build_3D/refEDA`, which has the tier, partitioning and 3D placement
+commands.
 
 The design inputs and the ASAP7, IHP Open PDK, and SKY130 digital libraries are included
 under `Test-Designs/` and `PDK/`. Keep these directories beside the scripts. The Tcl
@@ -219,6 +225,7 @@ means that the tutorial does not provide that example with that PDK.
 | 14–15. Global/detailed placement | Selectable ASAP7 netlist/DEF pair; fixed counter/DEF for IHP | Yes | Yes: four-bit counter | — |
 | 16. Gate-level placement | Selectable ASAP7 design; fixed counter for IHP | Yes | Yes: four-bit counter | — |
 | 17. RADHARD legalisation | Selectable ASAP7 design; fixed counter for IHP | Yes | Yes: four-bit counter | — |
+| 18. 3D placement: all three scripts | Fixed ISPD 2012 `DMA_fast` with its own library (`3D/inputs/`) | — | — | — |
 
 The PDK selector handles the placement, SET, RADHARD, ASTA and AIPO exercises only: 20 Tcl scripts in total. The
 examples in the other exercises retain their own PDK libraries. Exercise 5 uses the
@@ -1924,6 +1931,58 @@ and voters, so the two reports do not measure unprotected-versus-TMR area overhe
 example enforces spacing for the selected register groups; it does not add equivalent
 protection to every voter, clock, or remaining cell.
 
+## 18. Place a design on two tiers (3D)
+
+These examples place the ISPD 2012 `DMA_fast` netlist (25,301 cells) across two tiers.
+Partitioning assigns the cells to tiers; global placement finds approximate X and Y
+locations; legalisation fits the cells onto rows and sites of their tier; detailed placement
+refines their locations. All three scripts set two tiers 1 µm apart and a floorplan with
+aspect ratio 1 and 140% aggregate utilisation (total cell area over one tier's footprint), so
+an even area split gives about 70% utilisation on each tier.
+
+The 3D commands are in the 3D build of refEDA, `../Tool/build_3D/refEDA`; the executable of
+the other exercises does not have them.
+
+### 3D scripts
+
+| Script | Placement strategy |
+|---|---|
+| [`partition_first.tcl`](3D/partition_first.tcl) | Partition the netlist (`mlpartition`), then place it in mode 1 (2.5D), legalise with `legalise_components_3D`, refine the I/Os and detail-place |
+| [`bin_partition_per_tier.tcl`](3D/bin_partition_per_tier.tcl) | Place first, partition 20 × 20 spatial bins (`bin_based_partition`), then refine the placement with the alternating per-tier flow (`set_global_place_3D_flow 1`) |
+| [`direct_3d_placement.tcl`](3D/direct_3d_placement.tcl) | Global placement in mode 2 (3D), then 3D legalisation, I/O refinement and `detail_place_3D` |
+
+From `tutorial/`:
+
+```bash
+../Tool/build_3D/refEDA -no_gui -f 3D/partition_first.tcl
+../Tool/build_3D/refEDA -no_gui -f 3D/bin_partition_per_tier.tcl
+../Tool/build_3D/refEDA -no_gui -f 3D/direct_3d_placement.tcl
+```
+
+Each run replaces its own folder under `3D/results/`, named after the script. `tier0.def` and
+`tier1.def` contain the placement and net connections of each tier. [3D/README.md](3D/README.md)
+lists every setting of the three flows.
+
+### Read the 3D results
+
+Each example prints the planar HPWL, the 3D HPWL and the cutsize after global placement,
+legalisation and detailed placement:
+
+| Command | What to read |
+|---|---|
+| `report_HPWL` | Planar half-perimeter wirelength, from the X and Y span of the connections |
+| `report_placement_HPWL_3D` | The wirelength with the vertical tier separation included |
+| `report_cutsize_3D` | Number of nets that span tiers |
+
+Read the final `check_placement_is_legal` report with the metrics; `TUTORIAL_COMPLETE` marks
+the end of the script. If an HPWL becomes `inf` or `nan`, the wirelength measurement has
+failed: find the first stage where it happens before reading later reports. A
+`Timing information not found` warning is expected: these flows place for wirelength only.
+
+The inputs (`3D/inputs/`) are the mapped `DMA_fast` netlist, its technology LEF and cell LEF,
+copied unchanged from the ISPD 2012 benchmark suite; see the
+[benchmark notes](3D/inputs/ISPD2012_README) for attribution.
+
 ## Changing the design
 
 ### Use a supplied synchronous design
@@ -2160,10 +2219,18 @@ native-tool files and Python caches are omitted.
 ```text
 refEDA-checkout/
 ├── Tool/
-│   └── build/
-│       └── refEDA  # Built refEDA executable used by the shell commands
+│   ├── build/
+│   │   └── refEDA  # Built refEDA executable used by the shell commands
+│   └── build_3D/
+│       └── refEDA  # 3D build used by exercise 18 (tiers, partitioning, 3D placement)
 └── tutorial/
     ├── .gitignore  # Exclude generated results and Python caches from Git
+    ├── 3D/  # Exercise 18: two-tier partitioning and 3D placement (run with ../Tool/build_3D/refEDA)
+    │   ├── README.md  # Settings of the three 3D flows
+    │   ├── bin_partition_per_tier.tcl  # Place, partition spatial bins, refine per tier
+    │   ├── direct_3d_placement.tcl  # Mode-2 global placement, 3D legalisation and detailed placement
+    │   ├── inputs/  # ISPD 2012 DMA_fast netlist, technology and cell LEF, benchmark notes
+    │   └── partition_first.tcl  # Partition the netlist, then place in mode 1
     ├── Asynchronous/  # Exercises 12–13: event-cycle analysis and optimisation
     │   ├── AIPO/  # Exercise 13: placement and asynchronous ECO optimisation
     │   │   ├── aipo_ring_enable.tcl  # Place the enabled oscillator and run one ECO iteration

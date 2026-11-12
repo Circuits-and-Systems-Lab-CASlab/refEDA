@@ -1,0 +1,2 @@
+/usr/bin/ar qc libflute.a CMakeFiles/flute.dir/flute.cpp.o
+/usr/bin/ranlib libflute.a
