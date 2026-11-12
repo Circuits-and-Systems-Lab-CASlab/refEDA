@@ -65,7 +65,7 @@ set group_index 0
 foreach component $radhard_components {
 
     # Add two replicas and a majority voter for this register.
-    eco_tmr_component $component
+    eco_tmr_component $component -placementmethod 1
 
     # Find the replicas inserted by this call; do not assume their names.
     set replicas {}
@@ -78,15 +78,15 @@ foreach component $radhard_components {
         error "Expected two TMR replicas for $component"
     }
 
-    # A 20 um spacing in the 4x layout represents 5 um at native scale.
+    # A 15 um spacing in the 4x layout represents 5 um at native scale.
     set known_replicas [concat $known_replicas $replicas]
     set group rh_$group_index
     create_rh_group -name $group \
         -members [concat [list $component] $replicas]
-    set_rh_group_spacing -name $group -min 20
+    set_rh_group_spacing -name $group -min 15
 
     # Record the exact group members for result inspection.
-    puts $f [join [concat [list $group $component] $replicas [list 20]] "\t"]
+    puts $f [join [concat [list $group $component] $replicas [list 15]] "\t"]
     incr group_index
 }
 close $f
@@ -138,4 +138,4 @@ set f [open $out_dir/info.txt a]
 puts $f TUTORIAL_COMPLETE
 close $f
 puts TUTORIAL_COMPLETE
-exit
+# exit

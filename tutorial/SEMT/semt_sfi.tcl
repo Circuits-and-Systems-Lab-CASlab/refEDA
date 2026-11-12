@@ -163,4 +163,4 @@ set f [open $out_dir/info.txt a]
 puts $f TUTORIAL_COMPLETE
 close $f
 puts TUTORIAL_COMPLETE
-exit
+# exit
