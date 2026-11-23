@@ -39,12 +39,12 @@ puts $f "Mapping: $mapping"
 puts $f "Metal: $metal"
 close $f
 
-# Load native 1x geometry and the RVT TT CCS timing libraries.
+# Load native 1x geometry and the RVT TT NLDM timing libraries.
 load_lef {
     ../PDK/ASAP7/asap7sc7p5t_28/techlef_misc/asap7_tech_1x_201209.lef
     ../PDK/ASAP7/asap7sc7p5t_28/LEF/asap7sc7p5t_28_R_1x_220121a.lef
 }
-load_lib [list [lsort [glob ../PDK/ASAP7/asap7sc7p5t_28/LIB/CCS/*RVT_TT_ccs*.lib]]]
+load_lib [list [lsort [glob ../PDK/ASAP7/asap7sc7p5t_28/LIB/NLDM/*RVT_TT_nldm*.lib]]]
 load_verilog ../Test-Designs/Synchronous/${design}.v
 
 # Clock and I/O values use ps and fF. The output delay equals one clock period,
@@ -55,13 +55,21 @@ set_output_delay $period_ps -clock CLK [all_outputs]
 set_input_transition 20 -max [all_inputs]
 set_load 5 -max -pin_load [all_outputs]
 
-# Use fast CCS timing with a pi-model wire estimate.
-set_timing_model ccs
-set_ccs_effort fast
+# Treat the clock net as ideal, as before clock tree synthesis. Otherwise the clock
+# net's own wire load gives the flip-flop CK pins a very large slew on large
+# designs such as leon3mp.
+set_timingannotateclocknetwork 0
+
+# Use NLDM timing with a pi-model wire estimate.
+set_timing_model nldm
 set_timing_RC_mode pimodelRC
 
 # M3 uses the tutorial's estimate. M4 scales it by the width-normalised R and C
 # ratios of M4 to M3 in PDK/ASAP7/rcx_patterns.rules.
+# These values are per unit length (Ohm/um and pF/um), not the LEF per-square
+# values: set_layer_nonLEFRC 1 makes refEDA use R = rpersq x length and
+# C = cpersqdist x length for the wire estimate.
+set_layer_nonLEFRC 1
 if {$metal eq "M3"} {
     set_layer_rpersq M3 36.3251
     set_layer_cpersqdist M3 1.53955E-04

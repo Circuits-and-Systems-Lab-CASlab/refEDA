@@ -39,6 +39,8 @@ set_load 5 -max -pin_load [all_outputs]
 set_timing_model nldm
 set_timing_RC_mode lumpedRC
 set_timing_path_report_format 1
+# The M3 R and C values below are per unit length (Ohm/um and pF/um).
+set_layer_nonLEFRC 1
 set_layer_rpersq M3 36.3251
 set_layer_cpersqdist M3 1.53955E-04
 set_layer_as_lowest_metal M3

@@ -62,6 +62,8 @@ report_area
 close_log_output_file
 
 # Use the tutorial's estimated M3 wire-RC settings.
+# The M3 R and C values below are per unit length (Ohm/um and pF/um).
+set_layer_nonLEFRC 1
 set_layer_rpersq M3 36.3251
 set_layer_cpersqdist M3 1.53955E-04
 set_layer_as_lowest_metal M3

@@ -31,6 +31,8 @@ report_timing -async -longest -corner 0
 report_critical_cycle_period
 
 # Use the tutorial's M3 wire-RC estimate for the placed design.
+# The M3 R and C values below are per unit length (Ohm/um and pF/um).
+set_layer_nonLEFRC 1
 set_layer_rpersq M3 36.3251
 set_layer_cpersqdist M3 1.53955E-04
 set_layer_as_lowest_metal M3

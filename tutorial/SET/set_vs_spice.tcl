@@ -59,6 +59,8 @@ load_verilog $netlist
 load_def $placement
 
 # CCS timing with estimated pi-model wire RC on M3. Timing inputs are in ps and loads in fF.
+# The M3 R and C values below are per unit length (Ohm/um and pF/um).
+set_layer_nonLEFRC 1
 set_layer_rpersq M3 36.3251
 set_layer_cpersqdist M3 1.53955E-04
 set_layer_as_lowest_metal M3

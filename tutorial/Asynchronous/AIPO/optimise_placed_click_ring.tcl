@@ -45,6 +45,8 @@ set_async_modules {click1 click2}
 set_load 5 -max -pin_load [all_outputs]
 
 # Use the tutorial's estimated M3 wire-RC settings.
+# The M3 R and C values below are per unit length (Ohm/um and pF/um).
+set_layer_nonLEFRC 1
 set_layer_rpersq M3 36.3251
 set_layer_cpersqdist M3 1.53955E-04
 set_layer_as_lowest_metal M3
