@@ -398,4 +398,8 @@ refEDA is developed and maintained by the University of Thessaly's [Circuits and
 
 ## Support
 
-For questions or issues, please open a GitHub issue. Additional contact details: TBD.
+For questions or issues, please open a GitHub issue, or contact:
+
+- [zazatisn@gmail.com](mailto:zazatisn@gmail.com)
+- [kostasvarac@gmail.com](mailto:kostasvarac@gmail.com)
+- [csotiriou@gmail.com](mailto:csotiriou@gmail.com)
